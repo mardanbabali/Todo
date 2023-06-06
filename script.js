@@ -1,31 +1,41 @@
-// Create an empty array to store the to-do list
-let toDoList = [];
+let list = [];
+let listUl = document.getElementById('row');
+const btn =document.getElementById("btn")
+// function todo() {
+    btn.addEventListener("click",()=>{
+        let input = document.getElementById('input');
+        let value = input.value.trim();
+    
+        if (value) {
+            list.push(value);
+            Display();
+            input.value = "";
+        } else {
+            alert("Deyer daxil edin");
+        }
+    })
+    // let input = document.getElementById('input');
+    // let value = input.value.trim();
 
-// Function to add a task to the to-do list
-function addTask(task) {
-  toDoList.push(task);
-  console.log(`Task "${task}" has been added to the to-do list.`);
+    // if (value) {
+    //     list.push(value);
+    //     Display();
+    //     input.value = "";
+    // } else {
+    //     alert("Deyer daxil edin");
+    // }
+// }
+
+function Delete(index) {
+    list.splice(index, 1);
+    Display();
 }
 
-// Function to remove a task from the to-do list
-function removeTask(task) {
-  const index = toDoList.indexOf(task);
-  if (index > -1) {
-    toDoList.splice(index, 1);
-    console.log(`Task "${task}" has been removed from the to-do list.`);
-  } else {
-    console.log(`Task "${task}" is not found in the to-do list.`);
-  }
-}
-
-// Function to display the current to-do list
-function displayList() {
-  if (toDoList.length === 0) {
-    console.log("The to-do list is empty.");
-  } else {
-    console.log("Current to-do list:");
-    for (let i = 0; i < toDoList.length; i++) {
-      console.log(`${i + 1}. ${toDoList[i]}`);
+function Display() {
+    let data = "";
+    for (let i = 0; i < list.length; i++) {
+        data += `<li class="list-group-item d-flex justify-content-between">${list[i]} <button onclick="Delete(${i})" class="btn btn-danger btn-sm">Delete</button></li>`;
     }
-  }
+
+    listUl.innerHTML = data;
 }
